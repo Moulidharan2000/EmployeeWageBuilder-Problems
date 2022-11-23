@@ -1,17 +1,15 @@
-package com.employeewage;
+package com.employeeWages;
 
-public class EmployeeWageforTotalWorkingHours {
+public class employeeWageCompute {
+	
 	public static final int IsPartTime = 1;
 	public static final int IsFullTime = 2;
 	public static final int RateperHour = 20;
 	public static final int NumofWorkingDays = 2;
 	public static final int MaxhoursinMonth = 10;
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int emphrs = 0;
-		int totalemphrs = 0;
-		int totalWorkingDays = 0;
+	
+	@SuppressWarnings("unused")
+	public void calculateWage (int emphrs, int totalemphrs, int totalWorkingDays)  {
 		while (totalemphrs <= MaxhoursinMonth && totalWorkingDays < NumofWorkingDays) {
 			totalWorkingDays++;
 			int empcheck = (int) Math.floor(Math.random()*10)%3;
@@ -30,7 +28,5 @@ public class EmployeeWageforTotalWorkingHours {
 		}
 		int totalempwage = totalemphrs * RateperHour;
 		System.out.println("Total Employee Wage : "+totalempwage);
-
-	}
-
+	}		
 }
