@@ -6,12 +6,13 @@ interface IEmployeeWage {
 }
 public class EmployeeWageCompute {
 
-	String COMPANY_NAME = "";
-    int WAGE_PER_HR = 0;
-    int MAX_WORKING_DAYS = 0;
-    int MAX_WORKING_HRS = 0;
+	// declaring instance variables
+    final String COMPANY_NAME;
+    final int WAGE_PER_HR;
+    final int MAX_WORKING_DAYS;
+    final int MAX_WORKING_HRS;
     int totalEmpWage;
-	//Constructor
+    //Constructor
     public  EmployeeWageCompute(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
         COMPANY_NAME = companyName;
         WAGE_PER_HR = wagePerHr;

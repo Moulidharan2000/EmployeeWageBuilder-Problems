@@ -1,25 +1,26 @@
 package com.employeeWagesUC;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EmployeeWage implements IEmployeeWage {
 	// instance variables
-    int noOfCompanies, index;
-    EmployeeWageCompute[] companies; //declaring array
-
-    //Constructor for the class EmployeeWage
-    public EmployeeWage(int noOfCompanies) {
-        this.noOfCompanies = noOfCompanies;
-        companies = new EmployeeWageCompute[noOfCompanies];
-        index = 0;
-    }
+    int noOfCompanies, index; 
+    
+    ArrayList<CompanyEmpWage> companies; //ArrayList declaration
+    
+  // contructor for EmployeeWage  class
+    public EmployeeWage(){
+      companies=new ArrayList<>();
+  }
     //Assigning to the array
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
-        companies[index++] = new EmployeeWageCompute(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+    	CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        companies.add(company);
     }
-    //Computation of company wage
+    //print company wage
     int companyWage(EmployeeWageCompute companyEmpWage) {
-        System.out.println("* Computation of total wage of " + companyEmpWage.COMPANY_NAME + " employee:");
+        System.out.println("* Total wage of " + companyEmpWage.COMPANY_NAME + " employee:");
         int workingHrs, totalWage = 0;
         for (int day = 1, totalWorkingHrs = 0; day <= companyEmpWage.MAX_WORKING_DAYS
                 && totalWorkingHrs <= companyEmpWage.MAX_WORKING_HRS; day++, totalWorkingHrs += workingHrs) {
@@ -46,7 +47,7 @@ public class EmployeeWage implements IEmployeeWage {
         }
     }
     public void companyWage() {
-        for (EmployeeWageCompute company : companies) //for-each loop
+        for (CompanyEmpWage company : companies) //for-each loop
         {
             int totalWage = companyWage(company);
             company.setTotalEmployeeWage(totalWage);
@@ -56,7 +57,7 @@ public class EmployeeWage implements IEmployeeWage {
     
 	public static void main(String[] args) {
 		System.out.println("Welcome to Employee Wage Computation. \n");
-		EmployeeWage emp = new EmployeeWage(3); //creating an object and declaring number of companies = 3
+		EmployeeWage emp = new EmployeeWage(); //creating an object and declaring number of companies = 3
         emp.addCompany("Bridgeabz", 20, 20, 100);
         emp.addCompany("TATA", 34, 23, 130);
         emp.addCompany("BAJAJ", 10, 15, 99);
@@ -64,4 +65,5 @@ public class EmployeeWage implements IEmployeeWage {
 	}
 }
      
+
 
