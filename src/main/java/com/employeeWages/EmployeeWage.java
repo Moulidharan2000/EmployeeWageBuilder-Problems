@@ -1,34 +1,42 @@
 package com.employeeWagesUC;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class EmployeeWage implements IEmployeeWage {
 	// instance variables
-    int noOfCompanies, index; 
-    
+    int noOfCompanies, index;
     ArrayList<CompanyEmpWage> companies; //ArrayList declaration
-    
-  // contructor for EmployeeWage  class
+   //hasmap Declaration using variable String=company name,Integer is FullMonthWage
+    HashMap<String, Integer> fullDailyWage;
+
+    // contructor for EmployeeWage  class
     public EmployeeWage(){
-      companies=new ArrayList<>();
+      companies=new ArrayList<>();//arrylist
+        fullDailyWage = new HashMap<>(); //Hash Map
   }
     //Assigning to the array
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
     	CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
         companies.add(company);
+        fullDailyWage.put(companyName,0);
     }
     //print company wage
-    int companyWage(EmployeeWageCompute companyEmpWage) {
+    int companyWage(CompanyEmpWage companyEmpWage) {
         System.out.println("* Total wage of " + companyEmpWage.COMPANY_NAME + " employee:");
+
         int workingHrs, totalWage = 0;
         for (int day = 1, totalWorkingHrs = 0; day <= companyEmpWage.MAX_WORKING_DAYS
                 && totalWorkingHrs <= companyEmpWage.MAX_WORKING_HRS; day++, totalWorkingHrs += workingHrs) {
             int empType = generateEmployeeType(); //random value(0,1,2)
             workingHrs = getWorkingHrs(empType); //Full time, Part time or Absent
             int wage = workingHrs * companyEmpWage.WAGE_PER_HR;
+            fullDailyWage.put(companyEmpWage.COMPANY_NAME, wage); // insert an entry in the map. V put(Object key, Object value)
             totalWage += wage;
             System.out.print("\n Day "+day+": Working hrs ="+workingHrs+", Total Wage ="+ wage+", Total working hour =" +totalWorkingHrs +"\n");
+            System.out.println("                                                                        ");
+            printotalwage();
         }
         return totalWage;
     }
@@ -54,6 +62,11 @@ public class EmployeeWage implements IEmployeeWage {
             System.out.println(company); //overriding the toString() method
         }
     }
+    public  void printotalwage(){
+        System.out.println(" * Companies daily wage details for one employee :");
+        for (String companyName : fullDailyWage.keySet()) //Returns a Set view of the keys contained in this map
+            System.out.println(companyName + " company daily wage per emp : " + fullDailyWage.get(companyName)); //Get method to get the value of key value.
+        }
     
 	public static void main(String[] args) {
 		System.out.println("Welcome to Employee Wage Computation. \n");
@@ -61,6 +74,7 @@ public class EmployeeWage implements IEmployeeWage {
         emp.addCompany("Bridgeabz", 20, 20, 100);
         emp.addCompany("TATA", 34, 23, 130);
         emp.addCompany("BAJAJ", 10, 15, 99);
+        emp.printotalwage();
         emp.companyWage();
 	}
 }
